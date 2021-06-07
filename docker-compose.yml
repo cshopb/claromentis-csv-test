@@ -1,0 +1,42 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    hostname: mvc-container
+    domainname: mvc-container.com
+    image: mvc-docker
+    ports:
+      - 8088:80
+    volumes:
+      - .:/srv/www
+    links:
+      - db
+    networks:
+      - api
+    environment:
+      DB_HOST: db
+      DB_DATABASE: mvc_docker
+      DB_USERNAME: root
+      DB_PORT: 3306
+      DB_PASSWORD:
+  db:
+    image: mariadb:10.3.6
+    ports:
+      - 13306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - api
+    environment:
+      MYSQL_DATABASE: mvc_docker
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: y
+      MYSQL_ROOT_PASSWORD:
+volumes:
+  dbdata:
+    driver: "local"
+networks:
+  api:
+    driver: "bridge"

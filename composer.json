@@ -1,0 +1,13 @@
+{
+	"autoload": {
+		"psr-4": {
+			"App\\": "app/"
+		}
+	},
+	"require": {
+		"illuminate/database": "^v8.45.1"
+	},
+	"scripts": {
+		"createdb": "App\\Migration\\SetupDb::create"
+	}
+}

@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# https://stackoverflow.com/questions/13176042/server-is-redirecting-the-request-for-this-address-in-a-way-that-will-never-comp
+
+# Allow any files or directories that exist to be displayed directly
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Rewrite all other URLs to index.php/URL
+RewriteRule .* index.php [L]
